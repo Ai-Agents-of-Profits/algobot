@@ -1,0 +1,16 @@
+# SMABBI Trading Bot Requirements
+# Core dependencies
+ccxt
+pandas
+numpy
+pandas-ta
+schedule
+python-dotenv
+colorama
+
+# Backtesting dependencies
+backtesting
+
+# Optional visualization
+matplotlib
+seaborn
