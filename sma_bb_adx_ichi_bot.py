@@ -72,12 +72,31 @@ logging.info(f"SL: {sl_atr_multiple} * ATR({sl_atr_period})")
 # --- Exchange Setup --- (Reusing from gpb_bot.py)
 logging.info("Connecting to Bybit...")
 try:
-    exchange = ccxt.bybit({
+    # Set longer timeout for requests to prevent timeouts
+    exchange_config = {
         'enableRateLimit': True,
         'apiKey': os.getenv('BYBIT_API_KEY'),
         'secret': os.getenv('BYBIT_API_SECRET'),
-        'options': {'defaultType': 'linear'}
-    })
+        'options': {
+            'defaultType': 'linear',
+            'timeout': 30000,  # Timeout in milliseconds (30 seconds)
+        }
+    }
+    
+    # Check if we should use the proxy based on environment variable
+    USE_PROXY = os.getenv('USE_PROXY', 'false').lower() == 'true'
+    
+    if USE_PROXY:
+        logging.info("Using Fixie proxy for connection")
+        exchange_config['proxies'] = {
+            'http': 'http://fixie:jqqXTVRSClx3W68@ventoux.usefixie.com:80',
+            'https': 'http://fixie:jqqXTVRSClx3W68@ventoux.usefixie.com:80'
+        }
+    else:
+        logging.info("Connecting directly without proxy")
+        
+    exchange = ccxt.bybit(exchange_config)
+    
     if not os.getenv('BYBIT_API_KEY') or not os.getenv('BYBIT_API_SECRET'):
         raise ValueError("API Key/Secret missing in .env")
 
