@@ -2,7 +2,7 @@
 # Core dependencies
 ccxt
 pandas
-numpy
+numpy==1.26.4
 pandas-ta
 schedule
 python-dotenv
