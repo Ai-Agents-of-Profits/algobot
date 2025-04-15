@@ -34,7 +34,7 @@ ccxt_logger.setLevel(logging.WARNING)
 
 # --- Configuration ---
 SYMBOL = 'CORE/USDT:USDT' # Adjust to your desired symbol
-TIMEFRAME = '15m'
+TIMEFRAME = '5m'
 ORDER_SIZE_USD = 25
 FETCH_LIMIT = 200 # Increased from 100 for Ichimoku
 SCHEDULE_INTERVAL_SECONDS = 30 # How often to check
